@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil";
 import styled from "styled-components";
 import {
   Categories,
@@ -8,7 +13,9 @@ import {
   ICategoryArray,
   toDoSelector,
   toDoState,
+  toDoUserSelector,
   userCategoryArray,
+  userCategoryState,
 } from "./atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
@@ -52,14 +59,18 @@ const Category = styled.button`
 
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
+  const userToDos = useRecoilValue(toDoUserSelector);
 
   const setToDoArray = useSetRecoilState(toDoState);
   const setCategory = useSetRecoilState(categoryState);
+  const setUserCategory = useSetRecoilState(userCategoryState);
   const [submitForm, setSubmitForm] = useState(false);
   const [categoryArray, setCategoryArray] = useRecoilState(userCategoryArray);
   const { register, handleSubmit, setValue } = useForm();
   const onClick = (e: React.FormEvent<HTMLButtonElement>) => {
     setCategory(e.currentTarget.value as any);
+    setUserCategory(e.currentTarget.value as any);
+    // console.log(e.currentTarget.value);
   };
 
   const createCategory = () => {
@@ -78,6 +89,9 @@ function ToDoList() {
   useEffect(() => {
     setToDoArray(JSON.parse(localStorage.getItem("toDos") as any));
   }, []);
+
+  console.log(toDos);
+  console.log(userToDos);
 
   return (
     <Container>
@@ -122,9 +136,9 @@ function ToDoList() {
       ) : null}
 
       <CreateToDo />
-      {toDos?.map((toDo) => (
-        <ToDo key={toDo.id} {...toDo} />
-      ))}
+      {userToDos?.length === 0
+        ? toDos?.map((toDo) => <ToDo key={toDo.id} {...toDo} />)
+        : userToDos?.map((toDo) => <ToDo key={toDo.id} {...toDo} />)}
     </Container>
   );
 }

@@ -30,15 +30,21 @@ export const toDoSelector = selector({
     const toDos = get(toDoState);
     const catagory = get(categoryState);
     const userCategoryS = get(userCategoryState);
-    console.log(catagory);
-    console.log(userCategoryS);
 
     if (catagory !== "") {
-      // console.log("일반 카테고리");
       return toDos?.filter((toDo) => toDo.category === catagory);
     }
+  },
+});
+
+export const toDoUserSelector = selector({
+  key: "toDoUserSelector",
+  get: ({ get }) => {
+    const toDos = get(toDoState);
+    const catagory = get(categoryState);
+    const userCategoryS = get(userCategoryState);
+
     if (userCategoryS !== "") {
-      // console.log("커스텀 카테고리");
       return toDos?.filter((toDo) => toDo.userCategory === userCategoryS);
     }
   },
