@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/https//userJu.github.io/react-masterclass-todo/static/js/main.9d3c2511.js",
-    "index.html": "/https//userJu.github.io/react-masterclass-todo/index.html",
-    "main.9d3c2511.js.map": "/https//userJu.github.io/react-masterclass-todo/static/js/main.9d3c2511.js.map"
+    "main.js": "/react-masterclass-todo/static/js/main.a49e9af0.js",
+    "index.html": "/react-masterclass-todo/index.html",
+    "main.a49e9af0.js.map": "/react-masterclass-todo/static/js/main.a49e9af0.js.map"
   },
   "entrypoints": [
-    "static/js/main.9d3c2511.js"
+    "static/js/main.a49e9af0.js"
   ]
 }
