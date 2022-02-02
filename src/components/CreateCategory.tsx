@@ -50,7 +50,7 @@ const CreateCategory = () => {
     setValue("userCategory", "");
   };
 
-  if (categoryArray.length > 0) {
+  if (categoryArray?.length > 0) {
     localStorage.setItem("userCategories", JSON.stringify(categoryArray));
   }
 
