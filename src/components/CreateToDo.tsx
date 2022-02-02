@@ -47,9 +47,12 @@ function CreateToDo() {
 
     setValue("toDo", "");
   };
+
   if (toDos?.length > 0) {
     localStorage.setItem("toDos", JSON.stringify(toDos));
   }
+
+  useEffect(() => {}, []);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

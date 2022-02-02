@@ -17,6 +17,7 @@ import {
   userCategoryArray,
   userCategoryState,
 } from "./atoms";
+import CreateCategory from "./CreateCategory";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
@@ -60,38 +61,20 @@ const Category = styled.button`
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
   const userToDos = useRecoilValue(toDoUserSelector);
-
+  const [categoryArray, setCategoryArray] = useRecoilState(userCategoryArray);
   const setToDoArray = useSetRecoilState(toDoState);
   const setCategory = useSetRecoilState(categoryState);
   const setUserCategory = useSetRecoilState(userCategoryState);
-  const [submitForm, setSubmitForm] = useState(false);
-  const [categoryArray, setCategoryArray] = useRecoilState(userCategoryArray);
-  const { register, handleSubmit, setValue } = useForm();
   const onClick = (e: React.FormEvent<HTMLButtonElement>) => {
     setCategory(e.currentTarget.value as any);
     setUserCategory(e.currentTarget.value as any);
     // console.log(e.currentTarget.value);
   };
 
-  const createCategory = () => {
-    setSubmitForm((prev) => !prev);
-  };
-
-  const submitCategory = ({ userCategory }: any) => {
-    setCategoryArray((prev) => [
-      ...prev,
-      // userCategory,
-      { userCategory: userCategory, id: Date.now() },
-    ]);
-    setValue("userCategory", "");
-  };
-
   useEffect(() => {
     setToDoArray(JSON.parse(localStorage.getItem("toDos") as any));
+    setCategoryArray(JSON.parse(localStorage.getItem("userCategories") as any));
   }, []);
-
-  console.log(toDos);
-  console.log(userToDos);
 
   return (
     <Container>
@@ -123,18 +106,7 @@ function ToDoList() {
           </Category>
         ))}
       </CategoriesBox>
-      <h3 onClick={createCategory}>Create Category</h3>
-      {submitForm ? (
-        <form onSubmit={handleSubmit(submitCategory)}>
-          <input
-            {...register("userCategory")}
-            type="text"
-            placeholder="Make your category"
-          />
-          <button>Add</button>
-        </form>
-      ) : null}
-
+      <CreateCategory />
       <CreateToDo />
       {userToDos?.length === 0
         ? toDos?.map((toDo) => <ToDo key={toDo.id} {...toDo} />)

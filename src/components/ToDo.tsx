@@ -7,10 +7,13 @@ import { IToDo, toDoState, Categories, userCategoryArray } from "./atoms";
 
 const LiContainer = styled.li`
   margin-top: 1rem;
+  padding-bottom: 0.3rem;
   width: 80%;
   list-style: none;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid white;
+  align-items: center;
 `;
 
 const Buttons = styled.div``;
@@ -23,7 +26,11 @@ const Button = styled.button`
   border-radius: 1rem;
   margin-right: 0.3rem;
   padding: 0.2rem 0.4rem;
+  transition: all 300ms ease-in;
   cursor: pointer;
+  &:hover {
+    background-color: ${(prop) => prop.theme.accentColor};
+  }
 `;
 
 function ToDo({ text, category, id, userCategory }: IToDo) {
@@ -47,7 +54,6 @@ function ToDo({ text, category, id, userCategory }: IToDo) {
 
     setToDos((prevToDos) => {
       const targetIndex = prevToDos.findIndex((toDo) => toDo.id === id);
-      console.log(targetIndex);
       const newToDo = {
         text,
         id,

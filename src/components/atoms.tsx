@@ -29,7 +29,6 @@ export const toDoSelector = selector({
   get: ({ get }) => {
     const toDos = get(toDoState);
     const catagory = get(categoryState);
-    const userCategoryS = get(userCategoryState);
 
     if (catagory !== "") {
       return toDos?.filter((toDo) => toDo.category === catagory);
@@ -41,7 +40,6 @@ export const toDoUserSelector = selector({
   key: "toDoUserSelector",
   get: ({ get }) => {
     const toDos = get(toDoState);
-    const catagory = get(categoryState);
     const userCategoryS = get(userCategoryState);
 
     if (userCategoryS !== "") {
